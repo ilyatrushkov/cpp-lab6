@@ -1,7 +1,7 @@
 // Copyright 2022 Trushkov Ilya ilya.tr20002@gmail.com
 
-#ifndef TEMPLATE_PROCESSING_HPP
-#define TEMPLATE_PROCESSING_HPP
+#ifndef INCLUDE_PROCESSING_HPP_
+#define INCLUDE_PROCESSING_HPP_
 
 #include "for_json.hpp"
 
@@ -14,4 +14,4 @@ const size_t kEndCharSize = 4;
 void stopProcess(int param);
 void hashConfig(JSON& j);
 
-#endif  // TEMPLATE_PROCESSING_HPP
+#endif  // INCLUDE_PROCESSING_HPP_

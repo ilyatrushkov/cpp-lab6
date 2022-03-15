@@ -1,7 +1,7 @@
 // Copyright 2022 Trushkov Ilya ilya.tr20002@gmail.com
 
-#ifndef TEMPLATE_FOR_JSON_HPP
-#define TEMPLATE_FOR_JSON_HPP
+#ifndef INCLUDE_FOR_JSON_HPP_
+#define INCLUDE_FOR_JSON_HPP_
 
 #include <ctime>
 #include <fstream>
@@ -24,4 +24,4 @@ class JSON {
   json j_array;
 };
 
-#endif  // TEMPLATE_FOR_JSON_HPP
+#endif  // INCLUDE_FOR_JSON_HPP_
