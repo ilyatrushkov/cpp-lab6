@@ -8,6 +8,7 @@
 #include <boost/log/trivial.hpp>
 #include <atomic>
 #include <picosha2.h>
+#include <csignal>
 
 #include "processing.hpp"
 
