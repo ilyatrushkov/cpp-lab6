@@ -18,8 +18,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-#ifndef TEMPLATE_PICOSHA2_H
-#define TEMPLATE_PICOSHA2_H
+#ifndef INCLUDE_PICOSHA2_H_
+#define INCLUDE_PICOSHA2_H_
 
 #ifndef PICOSHA2_BUFFER_SIZE_FOR_INPUT_ITERATOR
 #define PICOSHA2_BUFFER_SIZE_FOR_INPUT_ITERATOR \
@@ -371,4 +371,4 @@ template<typename OutIter>void hash256(std::ifstream& f, OutIter first, OutIter 
 }
 }// namespace picosha2
 
-#endif  // TEMPLATE_PICOSHA2_H
+#endif  // INCLUDE_PICOSHA2_H_
