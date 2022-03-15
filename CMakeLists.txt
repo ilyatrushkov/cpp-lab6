@@ -28,30 +28,42 @@ string(APPEND CMAKE_CXX_FLAGS " -Wshadow -Wnon-virtual-dtor")
 
 # new versions of cmake contain gtest search files
 # commented out to increase the build speed.
-# hunter_add_package(GTest)
+hunter_add_package(GTest)
 find_package(GTest CONFIG REQUIRED)
+
+set(Boost_NO_BOOST_CMAKE ON)
+hunter_add_package(Boost COMPONENTS program_options log thread filesystem system)
+find_package(Boost CONFIG REQUIRED COMPONENTS program_options log log_setup thread filesystem system)
+
+hunter_add_package(nlohmann_json)
+find_package(nlohmann_json CONFIG REQUIRED)
 
 add_library(${PROJECT_NAME} STATIC
   # enum your files and delete this comment
-  ${CMAKE_CURRENT_SOURCE_DIR}/sources/example.cpp
-)
+        include/for_json.hpp sources/for_json.cpp include/processing.hpp sources/processing.cpp include/picosha2.h)
 
 add_executable(demo
   ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-  "$<INSTALL_INTERFACE:include>"
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
+        "$<INSTALL_INTERFACE:include>"
 )
 
-target_link_libraries(demo ${PROJECT_NAME})
+target_include_directories(${PROJECT_NAME} PUBLIC
+        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/third-party/PicoSHA2-2>"
+        "$<INSTALL_INTERFACE:third-party/PicoSHA2-2>"
+)
+
+# target_link_libraries(demo ${PROJECT_NAME})
+target_link_libraries(demo ${PROJECT_NAME} ${Boost_LIBRARIES} Boost::log Boost::log_setup Boost::thread Boost::filesystem Boost::system Boost::program_options)
+target_link_libraries(${PROJECT_NAME} PUBLIC nlohmann_json::nlohmann_json)
 
 if(BUILD_TESTS)
   add_executable(tests
     # TODO: enum your files and delete this comment
-    ${CMAKE_CURRENT_SOURCE_DIR}/tests/example.cpp
-  )
+          tests/my_tests.cpp)
   target_link_libraries(tests ${PROJECT_NAME} GTest::gtest_main)
   enable_testing()
   add_test(NAME unit_tests COMMAND tests)
