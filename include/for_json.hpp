@@ -14,14 +14,13 @@
 using json = nlohmann::json;
 
 class JSON {
+ private:
+  mutable std::mutex _mut;
+  json _j_array;
  public:
   void addHash(const std::string& data, const std::string& hash,
                std::time_t timestamp);
   friend std::ostream& operator<<(std::ostream& out, const JSON& j);
-
- private:
-  mutable std::mutex mut;
-  json j_array;
 };
 
 #endif  // INCLUDE_FOR_JSON_HPP_

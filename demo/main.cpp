@@ -11,9 +11,42 @@
 #include <boost/log/utility/setup.hpp>
 #include <csignal>
 #include <atomic>
+#include <picosha2.h>
 
 #include "for_json.hpp"
 #include "processing.hpp"
+
+std::atomic<bool> continueProcess = true;
+std::atomic<bool> jsonfile_exist_flag = false;
+
+const char kEndChar[] = "0000";
+const size_t kEndCharSize = 4;
+
+void stopProcess(int param) {
+  if (param == SIGINT) {
+    continueProcess = false;
+  }
+}
+
+void hashConfig(JSON& j) {
+  while (continueProcess) {
+    std::string genstring = std::to_string(std::rand());
+    std::string hash = picosha2::hash256_hex_string(genstring);
+    std::time_t timestamp(std::time(nullptr));
+    std::string lastChar = hash.substr(hash.size() - kEndCharSize);
+
+    if (lastChar == kEndChar) {
+      BOOST_LOG_TRIVIAL(info) << "0000 founded in hash '" << hash
+                              << "' of string '" << genstring << "'";
+      if (jsonfile_exist_flag) {
+        j.addHash(genstring, hash, timestamp);
+      }
+    } else {
+      BOOST_LOG_TRIVIAL(trace)
+          << "Hash '" << hash << "' get from string'" << genstring << "'";
+    }
+  }
+}
 
 int main(int argc, char *argv[]) {
   unsigned int number_of_threads;

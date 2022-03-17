@@ -40,7 +40,7 @@ find_package(nlohmann_json CONFIG REQUIRED)
 
 add_library(${PROJECT_NAME} STATIC
   # enum your files and delete this comment
-        include/for_json.hpp sources/for_json.cpp include/processing.hpp sources/processing.cpp include/picosha2.h)
+        include/for_json.hpp sources/for_json.cpp include/picosha2.h)
 
 add_executable(demo
   ${CMAKE_CURRENT_SOURCE_DIR}/demo/main.cpp
