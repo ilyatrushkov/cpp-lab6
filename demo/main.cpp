@@ -14,7 +14,6 @@
 #include <picosha2.h>
 
 #include "for_json.hpp"
-#include "processing.hpp"
 
 std::atomic<bool> continueProcess = true;
 std::atomic<bool> jsonfile_exist_flag = false;
